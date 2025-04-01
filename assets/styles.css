@@ -1,0 +1,738 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.votacion {
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1.5rem auto;
+    position: relative;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    max-width: 1200px;
+}
+
+.votacion:hover {
+    border-color: #0066cc;
+    background-color: #f0f7ff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.votacion:active {
+    background-color: #e6f0ff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.votacion::after {
+    content: "→";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.votacion:hover::after {
+    opacity: 1;
+}
+
+.votacion-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.votacion-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.votacion-info h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.votacion-info p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.votacion-resultados {
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.votacion-resultados h3 {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.resultados-detalle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.voto-linea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.voto-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.voto-si {
+    background-color: #4CAF50;
+}
+
+.voto-no {
+    background-color: #f44336;
+}
+
+.voto-abstencion {
+    background-color: #9e9e9e;
+}
+
+.voto-porcentaje {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.barra-resultados {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    margin: 0.5rem 0;
+}
+
+.barra-si {
+    background: #4CAF50;
+    height: 100%;
+    transition: width 0.3s ease-out;
+}
+
+.barra-no {
+    background: #f44336;
+    height: 100%;
+    transition: width 0.3s ease-out;
+}
+
+.total-votos {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: right;
+    margin-top: 0.25rem;
+}
+
+.etiqueta-voto {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+/* General Typography */
+body {
+    font-family: sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #222;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+/* Date Header */
+.date-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #555;
+    margin: 2rem 0 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+/* Tag Styles */
+.tag {
+    display: inline-block;
+    background-color: #e0e7ff;
+    color: #1a73e8;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Calendar Styles */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.calendar-day {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+.calendar-day.active {
+    background-color: #4CAF50;
+}
+
+.calendar-day::after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+/* Header Styles */
+header {
+    width: 100%;
+    padding: 0.5rem 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    position: relative;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+header .logo svg {
+    width: 32px;
+    height: 32px;
+    color: #1a73e8;
+}
+
+header .logo span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+header .menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+header .menu-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+header .menu-button svg {
+    width: 24px;
+    height: 24px;
+    color: #333;
+}
+
+header nav {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav nav {
+    padding: 0;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.header-left h1 {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.header-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.header-right ul li {
+    display: inline;
+}
+
+.header-right ul li a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 0.5rem 0;
+}
+
+.header-right ul li a:hover {
+    color: #0056b3;
+}
+
+header .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header .actions a {
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+header .actions a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #1a73e8;
+}
+
+/* Search Bar Styles */
+header .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 0.5rem;
+}
+
+header .search-container input[type="text"] {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+header .search-container input[type="text"]:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    outline: none;
+}
+
+header .search-container button {
+    padding: 0.5rem 1rem;
+    background-color: #1a73e8;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+header .search-container button:hover {
+    background-color: #1558b0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Header Adjustments */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0.5rem 1rem;
+    }
+
+    header .menu-button {
+        display: inline-flex;
+    }
+
+    header nav {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    header .actions {
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    header .search-container {
+        max-width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    header .search-container input[type="text"] {
+        font-size: 0.8rem;
+    }
+
+    header .search-container button {
+        font-size: 0.8rem;
+    }
+
+    .header-right ul {
+        justify-content: center;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .votacion-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .votacion-resultados {
+        padding: 0.75rem;
+    }
+
+    .calendar {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .votacion-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .votacion-resultados {
+        min-width: 100%;
+    }
+    
+    .votacion::after {
+        display: none;
+    }
+}
+
+/* Modificar los estilos de la sección de búsqueda */
+.search {
+    width: 100%;
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.search input[type="text"] {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search button:hover {
+    background-color: #0056b3;
+}
+
+/* Modificar los estilos de la sección de votaciones */
+.votaciones {
+    width: 100%;
+}
+
+/* Estilos generales */
+body {
+    font-family: sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilos de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+
+table th:hover {
+    background-color: #e0e0e0;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos de paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilos de filtro */
+.filter-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filter-container input {
+    padding: 5px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Estilos de navegación */
+nav {
+    padding: 1rem 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+/* Estilos de botones */
+button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-volver {
+    margin-top: 2rem;
+}
+
+/* Añadir después de los estilos de la tabla */
+.voto-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.voto-no {
+    background-color: #ff4444;
+}
+
+.voto-si {
+    background-color: #4CAF50;
+}
+
+.voto-abstencion {
+    background-color: #9e9e9e;
+}
+
+.fecha {
+    color: #666;
+    font-style: italic;
+    margin: 1.5rem 0;
+    width: 100%;
+    text-align: center;
+    order: -1;
+}
+
+/* Asegurar que el título no se desborde */
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Estilos para la página Acerca de */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.about-content h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.about-content h3 {
+    color: #444;
+    margin: 2rem 0 1rem 0;
+}
+
+.about-content p {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.about-content ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+    color: #555;
+}
+
+.about-content ul li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        padding: 1rem;
+    }
+}
+
+/* Estilos para los enlaces de contacto */
+.contact-links {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+}
+
+.contact-links li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.contact-icon {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.contact-links a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-links a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.expediente-texto {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .expediente-texto {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+}
+
+.informacion-general {
+    margin-top: 2rem;
+}

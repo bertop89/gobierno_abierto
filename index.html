@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votaciones Parlamentarias</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="font-sans antialiased">
+    <div class="container">
+        <header>
+            <nav>
+                <div class="header-left">
+                    <h1>Votaciones Parlamentarias</h1>
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section class="search">
+                <input type="text" id="search" placeholder="Buscar votaciones..." style="width: 100%;">
+            </section>
+            <section id="votaciones" class="votaciones">
+                <p id="loading-message">Cargando votaciones...</p>
+                <!-- Las tarjetas de votaciones se generarán aquí -->
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

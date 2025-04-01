@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Votación</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="font-sans antialiased">
+    <div class="container">
+        <header>
+            <nav>
+                <div class="header-left">
+                    <h1>Detalle de Votación</h1>
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main id="detalle-votacion">
+            <section class="informacion-general">
+                <h2 id="titulo"></h2>
+                <p id="texto-expediente"></p>
+            </section>
+            <section class="resultados-generales">
+                <h3>Resultados Generales</h3>
+                <p id="resultados-detalle"></p>
+                <div class="barra-resultados">
+                    <div id="barra-si" class="barra-si"></div>
+                    <div id="barra-no" class="barra-no"></div>
+                </div>
+            </section>
+            <section class="votaciones-individuales">
+                <h3>Votaciones Individuales</h3>
+                <div class="filter-container">
+                    <input type="text" id="filter-input" placeholder="Filtrar por diputado o grupo...">
+                </div>
+                <table id="tabla-votaciones">
+                    <thead>
+                        <tr>
+                            <th data-column="asiento" data-order="asc">Asiento</th>
+                            <th data-column="diputado" data-order="asc">Diputado</th>
+                            <th data-column="grupo" data-order="asc">Grupo</th>
+                            <th data-column="voto" data-order="asc">Voto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be dynamically added here -->
+                    </tbody>
+                </table>
+                <div class="pagination" id="pagination"></div>
+            </section>
+            <button class="btn-volver" onclick="window.history.back()">Volver</button>
+        </main>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const votacion = JSON.parse(localStorage.getItem("selectedVotacion"));
+
+            if (!votacion) {
+                document.body.innerHTML = "<p>Error: No se encontró información de la votación.</p>";
+                return;
+            }
+
+            // Formatear la fecha
+            const fechaParts = votacion.informacion.fecha.split('/');
+            const fecha = new Date(fechaParts[2], fechaParts[1] - 1, fechaParts[0]);
+            const fechaFormateada = fecha.toLocaleDateString('es-ES', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            // Agregar la fecha antes del título
+            const tituloElement = document.getElementById("titulo");
+            const fechaElement = document.createElement("p");
+            fechaElement.className = "fecha";
+            fechaElement.textContent = fechaFormateada;
+            tituloElement.parentNode.insertBefore(fechaElement, tituloElement);
+
+            document.getElementById("titulo").textContent = votacion.informacion.titulo;
+            document.getElementById("texto-expediente").textContent = votacion.informacion.textoExpediente;
+
+            const totalVotes = votacion.totales.afavor + votacion.totales.enContra;
+            const siPercentage = (votacion.totales.afavor / totalVotes) * 100;
+            const noPercentage = (votacion.totales.enContra / totalVotes) * 100;
+
+            document.getElementById("resultados-detalle").textContent = `Sí: ${votacion.totales.afavor}, No: ${votacion.totales.enContra}, Abstenciones: ${votacion.totales.abstenciones}`;
+
+            const barraSi = document.getElementById("barra-si");
+            const barraNo = document.getElementById("barra-no");
+
+            barraSi.style.width = `${siPercentage}%`;
+            barraSi.style.backgroundColor = "green";
+
+            barraNo.style.width = `${noPercentage}%`;
+            barraNo.style.backgroundColor = "red";
+
+            const rowsPerPage = 10;
+            let currentPage = 1;
+            let filteredData = votacion.votaciones;
+
+            const tablaVotaciones = document.getElementById("tabla-votaciones").querySelector("tbody");
+            const pagination = document.getElementById("pagination");
+            const filterInput = document.getElementById("filter-input");
+
+            function renderTable(data) {
+                tablaVotaciones.innerHTML = "";
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const pageData = data.slice(start, end);
+
+                pageData.forEach(voto => {
+                    const votoClass = voto.voto === 'No' ? 'voto-no' : 
+                                     voto.voto === 'Sí' ? 'voto-si' : 
+                                     'voto-abstencion';
+                    
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${voto.asiento}</td>
+                        <td>${voto.diputado}</td>
+                        <td>${voto.grupo}</td>
+                        <td><span class="voto-indicator ${votoClass}"></span>${voto.voto}</td>
+                    `;
+                    tablaVotaciones.appendChild(row);
+                });
+            }
+
+            function renderPagination(data) {
+                pagination.innerHTML = "";
+                const totalPages = Math.ceil(data.length / rowsPerPage);
+                const maxVisiblePages = 5;
+
+                let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+                if (endPage - startPage + 1 < maxVisiblePages) {
+                    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                }
+
+                if (startPage > 1) {
+                    const firstButton = document.createElement("button");
+                    firstButton.textContent = "1";
+                    firstButton.addEventListener("click", () => {
+                        currentPage = 1;
+                        renderTable(filteredData);
+                        renderPagination(filteredData);
+                    });
+                    pagination.appendChild(firstButton);
+
+                    if (startPage > 2) {
+                        const ellipsis = document.createElement("span");
+                        ellipsis.textContent = "...";
+                        pagination.appendChild(ellipsis);
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const button = document.createElement("button");
+                    button.textContent = i;
+                    button.className = i === currentPage ? "active" : "";
+                    button.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable(filteredData);
+                        renderPagination(filteredData);
+                    });
+                    pagination.appendChild(button);
+                }
+
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        const ellipsis = document.createElement("span");
+                        ellipsis.textContent = "...";
+                        pagination.appendChild(ellipsis);
+                    }
+
+                    const lastButton = document.createElement("button");
+                    lastButton.textContent = totalPages;
+                    lastButton.addEventListener("click", () => {
+                        currentPage = totalPages;
+                        renderTable(filteredData);
+                        renderPagination(filteredData);
+                    });
+                    pagination.appendChild(lastButton);
+                }
+            }
+
+            function sortTable(data, column, order) {
+                return data.sort((a, b) => {
+                    if (a[column] < b[column]) return order === "asc" ? -1 : 1;
+                    if (a[column] > b[column]) return order === "asc" ? 1 : -1;
+                    return 0;
+                });
+            }
+
+            document.querySelectorAll("#tabla-votaciones thead th").forEach(header => {
+                header.addEventListener("click", () => {
+                    const column = header.getAttribute("data-column");
+                    const order = header.getAttribute("data-order");
+                    filteredData = sortTable(filteredData, column, order);
+                    header.setAttribute("data-order", order === "asc" ? "desc" : "asc");
+                    renderTable(filteredData);
+                    renderPagination(filteredData);
+                });
+            });
+
+            filterInput.addEventListener("input", () => {
+                const query = filterInput.value.toLowerCase();
+                filteredData = votacion.votaciones.filter(voto =>
+                    voto.diputado.toLowerCase().includes(query) ||
+                    voto.grupo.toLowerCase().includes(query)
+                );
+                currentPage = 1;
+                renderTable(filteredData);
+                renderPagination(filteredData);
+            });
+
+            renderTable(filteredData);
+            renderPagination(filteredData);
+        });
+    </script>
+</body>
+</html>
