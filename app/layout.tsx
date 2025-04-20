@@ -45,6 +45,8 @@ export default function RootLayout({
                     <Link href={"/"}>Gobierno Abierto</Link>
                   </div>
                   <div className="flex gap-2">
+                    <Link href={"/stats/diputados"}>Diputados</Link>
+                    <Link href={"/stats/grupos_parlamentarios"}>Grupos</Link>
                     <Link href={"/about"}>Acerca de</Link>
                   </div>
                 </div>
