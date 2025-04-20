@@ -1,59 +1,16 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
 
-interface Votacion {
-    id_votacion: number;
-    titulo: string;
-    texto_expediente: string;
-    numero_votacion: number;
-    presentes: number;
-    a_favor: number;
-    en_contra: number;
-    abstenciones: number;
-    sesiones: Sesion;
-}
-
-interface Sesion {
-    id_sesion: number;
-    fecha: string;
-}
-
-const ListVotaciones = () => {
-    const [votaciones, setVotaciones] = useState<Votacion[]>([]);
+const ListVotaciones = ({ votaciones }: { votaciones: any }) => {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-
-    useEffect(() => {
-        const fetchVotaciones = async () => {
-            const supabase = await createClient();
-            const { data, error } = await supabase
-                .from('votaciones')
-                .select('*, sesiones(fecha)');
-            if (error) {
-                console.error('Error fetching votaciones:', error);
-            } else {
-                const sortedData = (data || []).sort((a, b) => {
-                    const dateA = new Date(a.sesiones.fecha);
-                    const dateB = new Date(b.sesiones.fecha);
-                    return dateB.getTime() - dateA.getTime();
-                });
-                setVotaciones(sortedData);
-            }
-            setLoading(false);
-        };
-
-        fetchVotaciones();
-    }, []);
-
-    if (loading) return <p>Cargando votaciones...</p>;
 
     return (
         <div>
             <ul>
-                {votaciones.map((votacion, index) => {
+                {votaciones.map((votacion: any, index: number) => {
                     const showDate =
                         index === 0 ||
                         new Date(votacion.sesiones.fecha).toLocaleDateString() !==

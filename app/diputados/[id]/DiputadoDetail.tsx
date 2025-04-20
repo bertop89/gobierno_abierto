@@ -1,57 +1,17 @@
 'use client';
 
-import { createClient } from '@/utils/supabase/client';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const DiputadoDetail = ({ id }: { id: string }) => {
-  const [diputado, setDiputado] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDiputadoData = async () => {
-      const supabase = await createClient();
-      const { data: diputadoData, error: diputadoError } = await supabase
-        .from('diputados')
-        .select(`
-            id_diputado, 
-            nombre, 
-            id_grupo,
-            grupos_parlamentarios(nombre, id_grupo),
-            votos(
-                asiento, 
-                voto, 
-                votaciones(
-                    titulo, 
-                    id_votacion, 
-                    id_sesion,
-                    sesiones(fecha)
-                )
-            )
-        `)
-        .eq('id_diputado', id)
-        .single();
-
-      if (diputadoError) {
-        console.error('Error fetching diputado:', diputadoError);
-      } else {
-        setDiputado(diputadoData);
-      }
-
-      setLoading(false);
-    };
-
-    fetchDiputadoData();
-  }, [id]);
-
-  if (loading) return <p>Cargando datos del diputado...</p>;
-
+const DiputadoDetail = ({ diputado }: { diputado: any }) => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4 text-center md:text-left">{diputado?.nombre}</h2>
       <p className="text-sm text-muted-foreground mb-4 text-center md:text-left">
         Grupo Parlamentario:
-        <Link href={`/grupos_parlamentarios/${diputado?.grupos_parlamentarios?.id_grupo}`} className="text-blue-500 hover:underline">
+        <Link
+          href={`/grupos_parlamentarios/${diputado?.grupos_parlamentarios?.id_grupo}`}
+          className="text-blue-500 hover:underline"
+        >
           {diputado?.grupos_parlamentarios?.nombre}
         </Link>
       </p>
@@ -76,8 +36,13 @@ const DiputadoDetail = ({ id }: { id: string }) => {
                   <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">{voto.votaciones.id_sesion}</td>
                   <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">{voto.asiento}</td>
                   <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
-                    <Link href={`/votaciones/${voto.votaciones?.id_votacion}`} className="text-blue-500 hover:underline">
-                      {voto.votaciones?.titulo.length > 20 ? `${voto.votaciones?.titulo.slice(0, 20)}...` : voto.votaciones?.titulo}
+                    <Link
+                      href={`/votaciones/${voto.votaciones?.id_votacion}`}
+                      className="text-blue-500 hover:underline"
+                    >
+                      {voto.votaciones?.titulo.length > 20
+                        ? `${voto.votaciones?.titulo.slice(0, 20)}...`
+                        : voto.votaciones?.titulo}
                     </Link>
                   </td>
                   <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">

@@ -2,102 +2,20 @@
 
 'use client';
 
-import { createClient } from '@/utils/supabase/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 
-interface GrupoParlamentario {
-    id_grupo: number;
-    nombre: string;
-  }
-  
-  interface Diputado {
-    id_diputado: number;
-    nombre: string;
-    grupos_parlamentarios: GrupoParlamentario;
-  }
-  
-  interface Voto {
-    id_voto: number;
-    id_votacion: number;
-    asiento: string;
-    voto: string;
-    diputados: Diputado;
-  }
-  
-  interface Votacion {
-    titulo: string;
-    texto_expediente: string;
-    presentes: number;
-    a_favor: number;
-    en_contra: number;
-    abstenciones: number;
-    no_votan: number;
-    votos: Voto[];
-  }
-
-const VotacionDetail = ({ id }: { id: string }) => {
-  const [votacion, setVotacion] = useState<Votacion>();
-  const [loading, setLoading] = useState(true);
+const VotacionDetail = ({ votacion }: { votacion: any }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const supabase = await createClient();
-      const { data, error } = await supabase
-        .from('votaciones')
-        .select(`
-            titulo,
-            texto_expediente,
-            presentes,
-            a_favor,
-            en_contra,
-            abstenciones,
-            no_votan,
-            votos (
-                id_voto,
-                id_votacion,
-                asiento,
-                voto,
-                diputados(
-                    id_diputado,
-                    nombre,
-                    grupos_parlamentarios(
-                        id_grupo,
-                        nombre
-                    )
-                )
-            )
-        `)
-        .eq('id_votacion', id)
-        .single(); // Use .single() to get a single object instead of an array
-
-      if (error) {
-        console.error('Error fetching votaciones:', error);
-      } else {
-        console.log('Fetched votacion:', data);
-        setVotacion(data ? {
-          ...data,
-          votos: data.votos.map((voto: any) => ({
-            ...voto,
-            diputados: Array.isArray(voto.diputados) ? voto.diputados[0] : voto.diputados,
-          })),
-        } : undefined);
-      }
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [id]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setCurrentPage(1); // Reset to the first page whenever the search term changes
   };
 
-  const filteredVotos = votacion?.votos?.filter((voto) => {
+  const filteredVotos = votacion?.votos?.filter((voto: any) => {
     const searchLower = searchTerm.toLowerCase();
     return (
       voto.asiento.toLowerCase().includes(searchLower) ||
@@ -107,8 +25,6 @@ const VotacionDetail = ({ id }: { id: string }) => {
   });
 
   const paginatedVotos = filteredVotos?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-
-  if (loading) return <p>Cargando votaciones...</p>;
 
   return (
     <div className="p-4">
@@ -162,7 +78,7 @@ const VotacionDetail = ({ id }: { id: string }) => {
             </tr>
           </thead>
           <tbody>
-            {paginatedVotos?.map((voto) => (
+            {paginatedVotos?.map((voto: any) => (
                 <tr key={voto.id_voto} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="border border-gray-300 px-4 py-2">{voto.asiento}</td>
                   <td className="border border-gray-300 px-4 py-2">
