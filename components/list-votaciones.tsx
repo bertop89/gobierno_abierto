@@ -1,11 +1,8 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface Votacion {
     id_votacion: number;
@@ -31,6 +28,7 @@ const ListVotaciones = () => {
 
     useEffect(() => {
         const fetchVotaciones = async () => {
+            const supabase = await createClient();
             const { data, error } = await supabase
                 .from('votaciones')
                 .select('*, sesiones(fecha)');

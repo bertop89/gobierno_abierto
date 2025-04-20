@@ -1,12 +1,8 @@
 "use client";
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@/utils/supabase/client';
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const GrupoParlamentarioDetail = ({ id }: { id: string }) => {
   const [grupo, setGrupo] = useState<any>(null);
@@ -14,6 +10,7 @@ const GrupoParlamentarioDetail = ({ id }: { id: string }) => {
 
   useEffect(() => {
     const fetchGrupoData = async () => {
+      const supabase = await createClient();
       const { data: grupoData, error: grupoError } = await supabase
         .from("grupos_parlamentarios")
         .select(`

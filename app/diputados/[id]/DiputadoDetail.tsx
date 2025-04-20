@@ -1,12 +1,8 @@
 'use client';
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const DiputadoDetail = ({ id }: { id: string }) => {
   const [diputado, setDiputado] = useState<any>(null);
@@ -14,6 +10,7 @@ const DiputadoDetail = ({ id }: { id: string }) => {
 
   useEffect(() => {
     const fetchDiputadoData = async () => {
+      const supabase = await createClient();
       const { data: diputadoData, error: diputadoError } = await supabase
         .from('diputados')
         .select(`
