@@ -157,7 +157,7 @@ const VotacionDetail = ({ id }: { id: string }) => {
             <tr className="bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
                 <th className="border border-gray-300 px-4 py-2 text-left">Asiento</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Diputado</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Grupo Parlamentario</th>
+                <th className="border border-gray-300 px-4 py-2 text-left">Grupo</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Voto</th>
             </tr>
           </thead>
