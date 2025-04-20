@@ -5,8 +5,9 @@ import {
     getVotacion
   } from '@/utils/supabase/queries';
 
+type Params = Promise<{ id: string }>;
 
-export default async function Page({ params }: any) {
+export default async function Page({ params } : { params: Params }) {
     const {id} = await params;
     const supabase = await createClient();
   

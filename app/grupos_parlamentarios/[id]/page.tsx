@@ -1,4 +1,4 @@
-// app/votaciones/[id]/page.tsx
+// app/grupos_parlamentarios/[id]/page.tsx
 
 import { createClient } from '@/utils/supabase/server';
 import GrupoParlamentarioDetail from './GrupoParlamentarioDetail';
@@ -6,7 +6,9 @@ import {
     getGrupoParlamentario
   } from '@/utils/supabase/queries';
 
-export default async function Page({ params }: { params: { id: string } }) {
+type Params = Promise<{ id: string }>;
+
+export default async function Page({ params } : { params: Params })  {
   const {id} = await params;
   const supabase = await createClient();
 
