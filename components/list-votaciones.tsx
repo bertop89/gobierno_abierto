@@ -69,7 +69,7 @@ const ListVotaciones = () => {
                                     </span>
                                 </>
                             )}
-                            <div className="flex flex-col md:flex-row border rounded-xl mb-4 shadow-md h-full cursor-pointer" onClick={() => router.push(`/votaciones/${votacion.id_votacion}`)}>
+                            <div className="flex flex-col md:flex-row border rounded-xl mb-4 shadow-md h-full cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700" onClick={() => router.push(`/votaciones/${votacion.id_votacion}`)}>
                                 <div className="flex flex-col gap-2 p-4 mb-4 w-full md:w-3/4">
                                     <span className="text-xl font-semibold">{votacion.titulo}</span>
                                     <p className="text-sm text-muted-foreground">
