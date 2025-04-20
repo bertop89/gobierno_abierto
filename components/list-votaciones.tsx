@@ -78,8 +78,8 @@ const ListVotaciones = () => {
                                             : votacion.texto_expediente}
                                     </p>
                                 </div>
-                                <div className="flex flex-col text-sm border p-2 w-full md:w-1/4 bg-gray-100">
-                                    <h3 className="font-semibold">Resultados de la votación</h3>
+                                <div className="flex flex-col text-sm border p-2 w-full md:w-1/4 bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+                                    <h3 className="font-semibold dark:text-white">Resultados de la votación</h3>
                                     <div className="flex items-center justify-between gap-2">
                                         <div className="flex items-center gap-2">
                                             <span className="h-3 w-3 rounded-full bg-green-500"></span>

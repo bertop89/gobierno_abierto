@@ -58,7 +58,7 @@ const DiputadoDetail = ({ id }: { id: string }) => {
       <h3 className="font-semibold mb-2">Votos Anteriores</h3>
       <table className="table-auto w-full border-collapse border border-gray-300">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
             <th className="border border-gray-300 px-4 py-2 text-left">Fecha</th>
             <th className="border border-gray-300 px-4 py-2 text-left">Sesion</th>
             <th className="border border-gray-300 px-4 py-2 text-left">Asiento</th>
@@ -67,8 +67,10 @@ const DiputadoDetail = ({ id }: { id: string }) => {
           </tr>
         </thead>
         <tbody>
-          {diputado?.votos?.map((voto: any, index: number) => (
-            <tr key={index} className="hover:bg-gray-50">
+            {diputado?.votos
+            ?.sort((a: any, b: any) => new Date(b.votaciones.sesiones.fecha).getTime() - new Date(a.votaciones.sesiones.fecha).getTime())
+            .map((voto: any, index: number) => (
+            <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700">
               <td className="border border-gray-300 px-4 py-2">{voto.votaciones.sesiones.fecha}</td>
               <td className="border border-gray-300 px-4 py-2">{voto.votaciones.id_sesion}</td>
               <td className="border border-gray-300 px-4 py-2">{voto.asiento}</td>

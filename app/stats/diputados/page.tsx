@@ -16,7 +16,7 @@ export default async function Page() {
       <h1 className="text-2xl font-bold mb-4">Estadísticas de Diputados</h1>
       <table className="table-auto w-full border-collapse border border-gray-300">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
             <th className="border border-gray-300 px-4 py-2 text-left">Nombre</th>
             <th className="border border-gray-300 px-4 py-2 text-left">Grupo Parlamentario</th>
             <th className="border border-gray-300 px-4 py-2 text-left">% Sí</th>
@@ -26,7 +26,7 @@ export default async function Page() {
         </thead>
         <tbody>
           {diputados.map((diputado: any) => (
-            <tr key={diputado.id_diputado} className="hover:bg-gray-50">
+            <tr key={diputado.id_diputado} className="hover:bg-gray-50 dark:hover:bg-gray-700">
               <td className="border border-gray-300 px-4 py-2">
                 <Link href={`/diputados/${diputado.id_diputado}`} className="text-blue-500 hover:underline">
                   {diputado.diputado}

@@ -154,7 +154,7 @@ const VotacionDetail = ({ id }: { id: string }) => {
         />
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
                 <th className="border border-gray-300 px-4 py-2 text-left">Asiento</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Diputado</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Grupo Parlamentario</th>
@@ -163,7 +163,7 @@ const VotacionDetail = ({ id }: { id: string }) => {
           </thead>
           <tbody>
             {paginatedVotos?.map((voto) => (
-                <tr key={voto.id_voto} className="hover:bg-gray-50">
+                <tr key={voto.id_voto} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="border border-gray-300 px-4 py-2">{voto.asiento}</td>
                   <td className="border border-gray-300 px-4 py-2">
                     <Link href={`/diputados/${voto.diputados.id_diputado}`} className="text-blue-500 hover:underline">
@@ -197,7 +197,7 @@ const VotacionDetail = ({ id }: { id: string }) => {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
           >
             Anterior
           </button>
@@ -205,7 +205,7 @@ const VotacionDetail = ({ id }: { id: string }) => {
           <button
             onClick={() => setCurrentPage((prev) => (filteredVotos && prev * rowsPerPage < filteredVotos.length ? prev + 1 : prev))}
             disabled={filteredVotos && currentPage * rowsPerPage >= filteredVotos.length}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
           >
             Siguiente
           </button>
