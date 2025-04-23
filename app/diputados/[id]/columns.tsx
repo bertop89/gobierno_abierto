@@ -60,7 +60,7 @@ export const columns: ColumnDef<Votos>[] = [
         accessorKey: 'voto',
         header: 'Voto',
         cell: ({ row }) => {
-            const voto = row.getValue('voto');
+            const voto = row.original.voto as string;
             let color = "gray";
 
             if (voto === "Sí") {

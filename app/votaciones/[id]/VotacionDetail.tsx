@@ -2,29 +2,10 @@
 
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { DataTable } from "../../../components/data-table"
+import { columns } from "./columns"
 
 const VotacionDetail = ({ votacion }: { votacion: any }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to the first page whenever the search term changes
-  };
-
-  const filteredVotos = votacion?.votos?.filter((voto: any) => {
-    const searchLower = searchTerm.toLowerCase();
-    return (
-      voto.asiento.toLowerCase().includes(searchLower) ||
-      voto.diputados.nombre.toLowerCase().includes(searchLower) ||
-      voto.diputados.grupos_parlamentarios.nombre.toLowerCase().includes(searchLower)
-    );
-  });
-
-  const paginatedVotos = filteredVotos?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
     <div className="p-4">
@@ -61,70 +42,8 @@ const VotacionDetail = ({ votacion }: { votacion: any }) => {
             ></div>
           </div>
         </div>
-        <input
-          type="text"
-          placeholder="Buscar por Asiento, Diputado o Grupo Parlamentario"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="mb-4 p-2 border border-gray-300 rounded w-full"
-        />
-        <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                <th className="border border-gray-300 px-4 py-2 text-left">Asiento</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Diputado</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Grupo</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Voto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedVotos?.map((voto: any) => (
-                <tr key={voto.id_voto} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="border border-gray-300 px-4 py-2">{voto.asiento}</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <Link href={`/diputados/${voto.diputados.id_diputado}`} className="text-blue-500 hover:underline">
-                      {voto.diputados.nombre}
-                    </Link>
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    
-                    <Link href={`/grupos_parlamentarios/${voto.diputados.grupos_parlamentarios.id_grupo}`} className="text-blue-500 hover:underline">
-                    {voto.diputados.grupos_parlamentarios.nombre}
-                    </Link>
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <span
-                        className={`px-2 py-1 rounded text-white ${
-                          voto.voto === 'Sí'
-                            ? 'bg-green-500'
-                            : voto.voto === 'No'
-                            ? 'bg-red-500'
-                            : 'bg-gray-500'
-                        }`}
-                    >
-                        {voto.voto}
-                    </span>
-                  </td>
-                </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex justify-between items-center mt-4">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
-          >
-            Anterior
-          </button>
-          <span>Página {currentPage}</span>
-          <button
-            onClick={() => setCurrentPage((prev) => (filteredVotos && prev * rowsPerPage < filteredVotos.length ? prev + 1 : prev))}
-            disabled={filteredVotos && currentPage * rowsPerPage >= filteredVotos.length}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
-          >
-            Siguiente
-          </button>
+        <div className="overflow-x-auto">
+          <DataTable columns={columns} data={votacion.votos} />
         </div>
     </div>
   );

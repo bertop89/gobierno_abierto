@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { DataTable } from "./data-table"
+import { DataTable } from "../../../components/data-table"
 import { columns } from "./columns"
 
 const DiputadoDetail = ({ diputado }: { diputado: any }) => {

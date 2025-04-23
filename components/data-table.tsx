@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   ColumnDef,
   SortingState,
@@ -10,6 +11,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  getFilteredRowModel 
 } from "@tanstack/react-table"
 
 import {
@@ -31,6 +33,7 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const [globalFilter, setGlobalFilter] = React.useState<any>([])
   const table = useReactTable({
     data,
     columns,
@@ -38,13 +41,24 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(), 
+    onGlobalFilterChange: setGlobalFilter,
     state: {
       sorting,
+      globalFilter
     },
   })
 
   return (
     <div>
+      <div className="flex items-center justify-between py-4">
+        <Input
+          placeholder="Filtrar"
+          value={globalFilter || ""}
+          onChange={e => table.setGlobalFilter(String(e.target.value))}
+          className="max-w-sm hover:border-blue-500 focus:ring focus:ring-blue-300 focus:outline-none"
+        />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
