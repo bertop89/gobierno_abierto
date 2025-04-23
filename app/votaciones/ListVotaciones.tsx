@@ -2,19 +2,22 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-
 const ListVotaciones = ({ votaciones }: { votaciones: any }) => {
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 25;
     const router = useRouter();
+
+    const paginatedVotaciones = votaciones.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
     return (
         <div>
             <ul>
-                {votaciones.map((votacion: any, index: number) => {
+                {paginatedVotaciones.map((votacion: any, index: number) => {
                     const showDate =
                         index === 0 ||
                         new Date(votacion.sesiones.fecha).toLocaleDateString() !==
-                            new Date(votaciones[index - 1].sesiones.fecha).toLocaleDateString();
+                            new Date(paginatedVotaciones[index - 1]?.sesiones.fecha).toLocaleDateString();
 
                     return (
                         <div key={votacion.id_votacion}>
@@ -78,6 +81,23 @@ const ListVotaciones = ({ votaciones }: { votaciones: any }) => {
                     );
                 })}
             </ul>
+            <div className="flex justify-between items-center mt-4">
+                <button
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
+                >
+                    Anterior
+                </button>
+                <span>Página {currentPage}</span>
+                <button
+                    onClick={() => setCurrentPage((prev) => (prev * rowsPerPage < votaciones.length ? prev + 1 : prev))}
+                    disabled={currentPage * rowsPerPage >= votaciones.length}
+                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
+                >
+                    Siguiente
+                </button>
+            </div>
         </div>
     );
 };
