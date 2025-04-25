@@ -1,3 +1,15 @@
+-- Drop dependent tables first due to foreign key constraints
+DROP TABLE IF EXISTS public.votos;
+DROP TABLE IF EXISTS public.diputados;
+DROP TABLE IF EXISTS public.votaciones;
+DROP TABLE IF EXISTS public.grupos_parlamentarios;
+DROP TABLE IF EXISTS public.sesiones;
+DROP TABLE IF EXISTS public.proponentes;
+DROP TABLE IF EXISTS public.categorias;
+DROP TABLE IF EXISTS public.subcategorias;
+DROP TABLE IF EXISTS public.votaciones_subcategorias;
+
+
 -- Sesiones
 CREATE TABLE sesiones (
     id_sesion INTEGER PRIMARY KEY,
@@ -22,7 +34,8 @@ CREATE TABLE votaciones (
 -- Grupos parlamentarios
 CREATE TABLE grupos_parlamentarios (
     id_grupo SERIAL PRIMARY KEY,
-    nombre VARCHAR(50)
+    nombre VARCHAR(50),
+    color VARCHAR(20)
 );
 
 -- Diputados
@@ -40,3 +53,197 @@ CREATE TABLE votos (
     asiento VARCHAR(10),
     voto VARCHAR(20)
 );
+
+-- Proponentes
+CREATE TABLE proponentes (
+    id_votacion INTEGER REFERENCES votaciones(id_votacion),
+    id_grupo INTEGER REFERENCES grupos_parlamentarios(id_grupo),
+    PRIMARY KEY (id_votacion, id_grupo)
+);
+
+-- Categorias de votaciones
+CREATE TABLE categorias (
+    id_categoria SERIAL PRIMARY KEY,
+    nombre_categoria TEXT
+);
+
+-- Subcategorias de votaciones
+CREATE TABLE subcategorias (
+    id_subcategoria SERIAL PRIMARY KEY,
+    id_categoria INTEGER REFERENCES categorias(id_categoria),
+    nombre_subcategoria TEXT
+);
+
+-- Votaciones por subcategorias
+CREATE TABLE votaciones_subcategorias (
+    id_votacion INTEGER REFERENCES votaciones(id_votacion),
+    id_subcategoria INTEGER REFERENCES subcategorias(id_subcategoria),
+    PRIMARY KEY (id_votacion, id_subcategoria)
+);
+
+
+
+-- Enable RLS and create public read policy for sesiones
+ALTER TABLE public.sesiones ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read sesiones"
+ON public.sesiones
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert sesiones"
+ON public.sesiones
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.sesiones
+FOR DELETE TO anon
+USING (true);
+
+-- Enable RLS and create public read policy for votaciones
+ALTER TABLE public.votaciones ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read votaciones"
+ON public.votaciones
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert votaciones"
+ON public.votaciones
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.votaciones
+FOR DELETE TO anon
+USING (true);
+
+-- Enable RLS and create public read policy for grupos_parlamentarios
+ALTER TABLE public.grupos_parlamentarios ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read grupos_parlamentarios"
+ON public.grupos_parlamentarios
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert grupos_parlamentarios"
+ON public.grupos_parlamentarios
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.grupos_parlamentarios
+FOR DELETE TO anon
+USING (true);
+
+
+-- Enable RLS and create public read policy for diputados
+ALTER TABLE public.diputados ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read diputados"
+ON public.diputados
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert diputados"
+ON public.diputados
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.diputados
+FOR DELETE TO anon
+USING (true);
+
+-- Enable RLS and create public read policy for votos
+ALTER TABLE public.votos ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read votos"
+ON public.votos
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert votos"
+ON public.votos
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.votos
+FOR DELETE TO anon
+USING (true);
+
+-- Enable RLS and create public read policy for proponentes
+ALTER TABLE public.proponentes ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read proponentes"
+ON public.proponentes
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert proponentes"
+ON public.proponentes
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.proponentes
+FOR DELETE TO anon
+USING (true);
+
+
+-- Enable RLS and create public read policy for categorias
+ALTER TABLE public.categorias ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read categorias"
+ON public.categorias
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert categorias"
+ON public.categorias
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.categorias
+FOR DELETE TO anon
+USING (true);
+
+-- Enable RLS and create public read policy for subcategorias
+ALTER TABLE public.subcategorias ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read subcategorias"
+ON public.subcategorias
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert subcategorias"
+ON public.subcategorias
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.subcategorias
+FOR DELETE TO anon
+USING (true);
+
+-- Enable RLS and create public read policy for votaciones_subcategorias
+ALTER TABLE public.votaciones_subcategorias ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read votaciones_subcategorias"
+ON public.votaciones_subcategorias
+FOR SELECT TO anon
+USING (true);
+
+CREATE POLICY "anon can insert votaciones_subcategorias"
+ON public.votaciones_subcategorias
+FOR INSERT TO anon
+WITH CHECK (true);
+
+CREATE POLICY "allow deletes"
+ON public.votaciones_subcategorias
+FOR DELETE TO anon
+USING (true);
+
