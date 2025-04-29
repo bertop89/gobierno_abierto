@@ -7,32 +7,29 @@ import { ArrowUpDown } from "lucide-react"
 export type Subcategoria = {
   id_subcategoria: string;
   nombre_subcategoria: string;
-  nombre_categoria: string;
   categorias: {
     nombre_categoria: string;
+    id_categoria: string;
   };
   votaciones_subcategorias: any[]; // Adjust the type of the array elements as needed
 };
 
 export const columns: ColumnDef<Subcategoria>[] = [
     {
-        accessorKey: "id_subcategoria",
-        header: "ID Subcategoría",
-        cell: ({ row }) => (
-            <a href={`/subcategoria/${row.original.id_subcategoria}`} className="text-blue-500 underline">
-                {row.original.id_subcategoria}
-            </a>
-        ),
-    },
-    {
       accessorKey: "nombre_categoria",
       header: "Nombre Categoría",
-      cell: ({ row }) => <span>{row.original.categorias.nombre_categoria}</span>,
+      cell: ({ row }) => 
+        <a href={`/categorias/${row.original.categorias.id_categoria}`} className="text-blue-500 underline">
+            {row.original.categorias.nombre_categoria}
+        </a>,
     },
     {
         accessorKey: "nombre_subcategoria",
         header: "Nombre Subcategoría",
-        cell: ({ row }) => <span>{row.original.nombre_subcategoria}</span>,
+        cell: ({ row }) => 
+          <a href={`/subcategorias/${row.original.id_subcategoria}`} className="text-blue-500 underline">
+              {row.original.nombre_subcategoria}
+          </a>,
     },
     {
         accessorKey: "votaciones_subcategorias",

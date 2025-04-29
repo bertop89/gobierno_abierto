@@ -156,7 +156,15 @@ export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, 
                     id_votacion,
                     titulo,
                     texto_expediente,
-                    sesiones(fecha)
+                    sesiones(fecha),
+                    votos(
+                        diputados(
+                            grupos_parlamentarios(
+                                nombre
+                            )
+                        ),
+                        voto
+                    )
                 )
             )
         `)
@@ -175,6 +183,45 @@ export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, 
             const dateB = new Date(b.votaciones[0]?.sesiones[0]?.fecha);
             return dateB.getTime() - dateA.getTime();
         });
+    }
+
+    return subcategoria;
+});
+
+export const getVotacionesCategoria = cache(async (supabase: SupabaseClient, categoriaId: string) => {
+    const { data: subcategoria, error } = await supabase
+        .from('categorias')
+        .select(`
+            id_categoria,
+            nombre_categoria,
+            subcategorias(
+                id_subcategoria,
+                nombre_subcategoria,
+                votaciones_subcategorias(
+                    votaciones(
+                        id_votacion,
+                        titulo,
+                        texto_expediente,
+                        sesiones(fecha),
+                        votos(
+                            diputados(
+                                grupos_parlamentarios(
+                                    nombre
+                                )
+                            ),
+                            voto
+                        )
+                    )
+                )
+            )
+
+        `)
+        .eq('id_categoria', categoriaId)
+        .single(); // Use .single() to get a single object instead of an array
+
+    if (error) {
+        console.error(error);
+        throw new Error('Error fetching votaciones for subcategoria');
     }
 
     return subcategoria;

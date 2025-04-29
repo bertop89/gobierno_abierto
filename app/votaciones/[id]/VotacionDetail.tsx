@@ -25,7 +25,7 @@ const VotacionDetail = ({ votacion }: { votacion: any }) => {
         {votacion?.votaciones_subcategorias?.map((subcategoria: { subcategorias: { nombre_subcategoria: string }, id_subcategoria: number }, index: number) => (
           <a
             key={index}
-            href={`/subcategoria/${subcategoria.id_subcategoria}`}
+            href={`/subcategorias/${subcategoria.id_subcategoria}`}
             className="px-2 py-1 text-sm font-medium text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300"
           >
             {subcategoria.subcategorias.nombre_subcategoria}
