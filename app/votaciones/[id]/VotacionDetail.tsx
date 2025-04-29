@@ -21,6 +21,7 @@ const VotacionDetail = ({ votacion }: { votacion: any }) => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">{votacion?.titulo}</h2>
+      <p className="text-sm text-gray-500 mb-4">{new Date(votacion?.sesiones.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
       <div className="flex flex-wrap gap-2 mb-4">
         {votacion?.votaciones_subcategorias?.map((subcategoria: { subcategorias: { nombre_subcategoria: string }, id_subcategoria: number }, index: number) => (
           <a

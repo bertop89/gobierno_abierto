@@ -64,7 +64,8 @@ CREATE TABLE proponentes (
 -- Categorias de votaciones
 CREATE TABLE categorias (
     id_categoria SERIAL PRIMARY KEY,
-    nombre_categoria TEXT
+    nombre_categoria TEXT,
+    color TEXT
 );
 
 -- Subcategorias de votaciones

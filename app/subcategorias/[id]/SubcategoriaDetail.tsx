@@ -28,7 +28,9 @@ const SubcategoriaDetail = ({ subcategoria }: { subcategoria: any }) => {
       <Link href="/subcategorias" className="text-blue-500 hover:underline mb-4 inline-block">&larr; Categorias</Link>
       <h1 className="text-2xl font-semibold mb-4">Subcategoría: {subcategoria.nombre_subcategoria}</h1>
       <p className="text-sm text-muted-foreground mb-4 text-center md:text-left break-words">
-        Categoría: {subcategoria.categorias.nombre_categoria}
+        Categoría: <a href={`/categorias/${subcategoria.categorias.id_categoria}`} className="text-blue-500 underline">
+          {subcategoria.categorias.nombre_categoria}
+        </a>
       </p>
       {Object.keys(groupedData).length > 0 && (
         <div className="mt-6">

@@ -46,7 +46,7 @@ const BarChart = ({ groupedData }: { groupedData: any }) => {
     },
   };
 
-  return <Bar data={chartData} options={chartOptions} />;
+  return <Bar data={chartData} options={chartOptions} style={{  maxHeight: '400px' }}  />;
 };
 
 export default BarChart;

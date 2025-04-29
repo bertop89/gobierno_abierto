@@ -54,6 +54,10 @@ export const getVotacion = cache(async (supabase: SupabaseClient, id: string) =>
                 id_grupo,
                 nombre
             )
+        ),
+        sesiones(
+            id_sesion,
+            fecha
         )
     `)
     .eq('id_votacion', id)
@@ -106,6 +110,22 @@ export const getGrupoParlamentario = cache(async (supabase: SupabaseClient, id: 
       diputados(
         id_diputado,
         nombre
+      ),
+      proponentes(
+        votaciones(
+            sesiones(fecha),
+            votaciones_subcategorias(
+                id_subcategoria,
+                subcategorias(
+                    nombre_subcategoria,
+                    categorias(
+                        id_categoria,
+                        nombre_categoria,
+                        color
+                    )
+                )
+            )
+        )
       )
     `)
     .eq("id_grupo", id)
