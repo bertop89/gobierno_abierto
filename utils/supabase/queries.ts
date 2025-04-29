@@ -147,6 +147,10 @@ export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, 
         .select(`
             id_subcategoria,
             nombre_subcategoria,
+            categorias(
+                id_categoria,
+                nombre_categoria
+            ),
             votaciones_subcategorias(
                 votaciones(
                     id_votacion,
@@ -173,12 +177,7 @@ export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, 
         });
     }
 
-    const subcategoria_final = {
-        nombre_subcategoria: subcategoria.nombre_subcategoria,
-        votaciones: subcategoria.votaciones_subcategorias.flatMap(vs => vs.votaciones),
-    };
-
-    return subcategoria_final;
+    return subcategoria;
 });
 
 export const getSubcategorias = cache(async (supabase: SupabaseClient) => {
