@@ -42,6 +42,18 @@ export const getVotacion = cache(async (supabase: SupabaseClient, id: string) =>
                     nombre
                 )
             )
+        ),
+        votaciones_subcategorias(
+            id_subcategoria,
+            subcategorias(
+                nombre_subcategoria
+            )
+        ),
+        proponentes(
+            grupos_parlamentarios(
+                id_grupo,
+                nombre
+            )
         )
     `)
     .eq('id_votacion', id)
@@ -90,6 +102,7 @@ export const getGrupoParlamentario = cache(async (supabase: SupabaseClient, id: 
     .select(`
       id_grupo,
       nombre,
+      color,
       diputados(
         id_diputado,
         nombre
@@ -127,3 +140,44 @@ export const getVotosPorDiputado = cache(async (supabase: SupabaseClient) => {
     
     return diputados;
 });
+
+export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, subcategoriaId: string) => {
+    const { data: subcategoria, error } = await supabase
+        .from('subcategorias')
+        .select(`
+            id_subcategoria,
+            nombre_subcategoria,
+            votaciones_subcategorias(
+                votaciones(
+                    id_votacion,
+                    titulo,
+                    texto_expediente,
+                    sesiones(fecha)
+                )
+            )
+        `)
+        .eq('id_subcategoria', subcategoriaId)
+        .single(); // Use .single() to get a single object instead of an array
+
+    if (error) {
+        console.error(error);
+        throw new Error('Error fetching votaciones for subcategoria');
+    }
+
+    // Sort votaciones by fecha descending
+    if (subcategoria && subcategoria.votaciones_subcategorias) {
+        subcategoria.votaciones_subcategorias = subcategoria.votaciones_subcategorias.sort((a, b) => {
+            const dateA = new Date(a.votaciones[0]?.sesiones[0]?.fecha);
+            const dateB = new Date(b.votaciones[0]?.sesiones[0]?.fecha);
+            return dateB.getTime() - dateA.getTime();
+        });
+    }
+
+    const subcategoria_final = {
+        nombre_subcategoria: subcategoria.nombre_subcategoria,
+        votaciones: subcategoria.votaciones_subcategorias.flatMap(vs => vs.votaciones),
+    };
+
+    return subcategoria_final;
+});
+
