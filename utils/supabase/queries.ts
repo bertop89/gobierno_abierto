@@ -181,3 +181,25 @@ export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, 
     return subcategoria_final;
 });
 
+export const getSubcategorias = cache(async (supabase: SupabaseClient) => {
+    const { data: subcategorias, error } = await supabase
+        .from('subcategorias')
+        .select(`
+            id_subcategoria,
+            nombre_subcategoria,
+            categorias(
+                id_categoria,
+                nombre_categoria
+            ),
+            votaciones_subcategorias(
+                id_votacion
+            )
+        `)
+
+    if (error) {
+        console.error(error);
+        throw new Error('Error fetching subcategorias');
+    }
+
+    return subcategorias;
+});
