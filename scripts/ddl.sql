@@ -82,6 +82,17 @@ CREATE TABLE votaciones_subcategorias (
 );
 
 
+-- Add indexes for unindexed foreign keys
+CREATE INDEX idx_votaciones_id_sesion ON votaciones(id_sesion);
+CREATE INDEX idx_diputados_id_grupo ON diputados(id_grupo);
+CREATE INDEX idx_votos_id_votacion ON votos(id_votacion);
+CREATE INDEX idx_votos_id_diputado ON votos(id_diputado);
+CREATE INDEX idx_proponentes_id_votacion ON proponentes(id_votacion);
+CREATE INDEX idx_proponentes_id_grupo ON proponentes(id_grupo);
+CREATE INDEX idx_subcategorias_id_categoria ON subcategorias(id_categoria);
+CREATE INDEX idx_votaciones_subcategorias_id_votacion ON votaciones_subcategorias(id_votacion);
+CREATE INDEX idx_votaciones_subcategorias_id_subcategoria ON votaciones_subcategorias(id_subcategoria);
+
 
 -- Enable RLS and create public read policy for sesiones
 ALTER TABLE public.sesiones ENABLE ROW LEVEL SECURITY;
