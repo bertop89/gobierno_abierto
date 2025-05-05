@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import {
-  getVotosPorGrupo
+  getVotosPorGrupo,
+  getVotosCruzadosPorGrupo
 } from '@/utils/supabase/queries';
 import GrupoParlamentariosStats from './GrupoParlamentariosStats';
 
@@ -9,7 +10,9 @@ export default async function Page() {
 
   const grupos_stats = await getVotosPorGrupo(supabase);
 
-  return <GrupoParlamentariosStats grupos_stats={grupos_stats} />;
+  const votos_cruzados = await getVotosCruzadosPorGrupo(supabase);
+
+  return <GrupoParlamentariosStats grupos_stats={grupos_stats} votos_cruzados={votos_cruzados} />;
 
 
 

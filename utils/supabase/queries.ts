@@ -161,6 +161,29 @@ export const getVotosPorDiputado = cache(async (supabase: SupabaseClient) => {
     return diputados;
 });
 
+export const getVotosCruzadosPorGrupo = cache(async (supabase: SupabaseClient) => {
+    const { data: votos, error } = await supabase.rpc('votos_cruzados_por_grupo');
+
+    if (error) {
+        console.error(error);
+        throw new Error('Error fetching votos por proponente');
+    }
+
+    const grupos = votos.reduce((acc: any, item: any) => {
+        let grupo = acc.find((g: any) => g.id === item.grupo_proponente);
+        if (!grupo) {
+            grupo = { id: item.grupo_proponente, data: [] };
+            acc.push(grupo);
+        }
+        if (item.voto === 'Sí') {
+            grupo.data.push({ x: item.grupo_votante, y: Math.round(item.porcentaje) });
+        }
+        return acc;
+    }, []);
+
+    return grupos;
+});
+
 export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, subcategoriaId: string) => {
     const { data: subcategoria, error } = await supabase
         .from('subcategorias')
@@ -269,3 +292,4 @@ export const getSubcategorias = cache(async (supabase: SupabaseClient) => {
 
     return subcategorias;
 });
+
