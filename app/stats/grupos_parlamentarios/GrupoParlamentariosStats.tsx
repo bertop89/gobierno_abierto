@@ -13,12 +13,12 @@ const GrupoParlamentariosStats = ({ grupos_stats, votos_cruzados }: { grupos_sta
             </div>
             <div className="mt-4">
                 <h3 className="text-xl font-semibold mb-2">Votos Cruzados</h3>
-                <div style={{ height: '500px', width: '90%' }}>
+                <div style={{ height: '500px', width: '100%' }}>
                     <ResponsiveHeatMap
                         data={votos_cruzados}
                         axisTop={{ tickSize: 5, tickPadding: 5, tickRotation: -45, legend: 'Grupo Votante', legendPosition: 'middle', legendOffset: -50 }}
-                        axisLeft={{ tickSize: 5, tickPadding: 5, legend: 'Grupo Proponente', legendPosition: 'middle', legendOffset: -60 }}
-                        margin={{ top: 100, right: 20, bottom: 60, left: 80 }}
+                        axisLeft={{ tickSize: 5, tickPadding: 5, tickRotation: -45, legend: 'Grupo Proponente', legendPosition: 'middle', legendOffset: -60 }}
+                        margin={{ top: 100, right: 20, bottom: 60, left: 90 }}
                         colors={{
                           type: 'sequential',
                           scheme: 'red_yellow_green',
@@ -27,7 +27,7 @@ const GrupoParlamentariosStats = ({ grupos_stats, votos_cruzados }: { grupos_sta
                         }}
                         label={(d) => `${d.value}%`}
                         labelTextColor={{ from: 'color', modifiers: [['darker', 3.0]] }}
-                        hoverTarget="cell"
+                        isInteractive={false}
                     />
                 </div>
             </div>
