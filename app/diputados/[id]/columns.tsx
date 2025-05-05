@@ -1,8 +1,7 @@
 "use client"
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
+import { SortingButton } from "@/components/ui/sorting-button";
 import { Badge } from "@/components/ui/badge";
 
 export type Votos = {
@@ -22,15 +21,14 @@ export const columns: ColumnDef<Votos>[] = [
     {
         accessorKey: 'votaciones.sesiones.fecha',
         header: ({ column }) => {
+            const isSorted = column.getIsSorted();
             return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Fecha
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
+              <SortingButton
+                isSorted={isSorted}
+                onClick={() => column.toggleSorting(isSorted === "asc")}
+                label="Fecha"
+              />
+            );
         },
         cell: ({ row }) => {
             // Format the date to DD/MM/YYYY

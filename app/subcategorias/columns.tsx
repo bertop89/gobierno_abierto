@@ -1,8 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
+import { SortingButton } from "@/components/ui/sorting-button";
 
 export type Subcategoria = {
   id_subcategoria: string;
@@ -34,15 +33,14 @@ export const columns: ColumnDef<Subcategoria>[] = [
     {
         accessorKey: "votaciones_subcategorias",
         header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-              Votaciones
-              <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-          )
+            const isSorted = column.getIsSorted();
+            return (
+              <SortingButton
+                isSorted={isSorted}
+                onClick={() => column.toggleSorting(isSorted === "asc")}
+                label="Votaciones"
+              />
+            );
         },
         cell: ({ row }) => <span>{row.original.votaciones_subcategorias.length}</span>,
     }

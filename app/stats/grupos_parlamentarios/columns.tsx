@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge";
+import { SortingButton } from "@/components/ui/sorting-button";
 
 export type Grupo = {
     grupo_parlamentario: string;
@@ -19,15 +20,14 @@ export const columns: ColumnDef<Grupo>[] = [
     {
         accessorKey: 'grupo_parlamentario',
         header: ({ column }) => {
+            const isSorted = column.getIsSorted();
             return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Grupo
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
+              <SortingButton
+                isSorted={isSorted}
+                onClick={() => column.toggleSorting(isSorted === "asc")}
+                label="Grupo"
+              />
+            );
         },
         cell: ({ row }) => {
             const grupo = row.original.grupo_parlamentario
@@ -44,30 +44,41 @@ export const columns: ColumnDef<Grupo>[] = [
     {
         accessorKey: 'diputados',
         header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Diputados
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
-        }
+          const isSorted = column.getIsSorted();
+          return (
+            <SortingButton
+              isSorted={isSorted}
+              onClick={() => column.toggleSorting(isSorted === "asc")}
+              label="Diputados"
+            />
+          );
+      },
     },
+    {
+      accessorKey: 'proposiciones_presentadas',
+      header: ({ column }) => {
+        const isSorted = column.getIsSorted();
+        return (
+          <SortingButton
+            isSorted={isSorted}
+            onClick={() => column.toggleSorting(isSorted === "asc")}
+            label="Proposiciones"
+          />
+        );
+    },
+  },
     {
         accessorKey: 'porcentaje_si',
         header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                % Sí
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
-        },
+          const isSorted = column.getIsSorted();
+          return (
+            <SortingButton
+              isSorted={isSorted}
+              onClick={() => column.toggleSorting(isSorted === "asc")}
+              label="% Sí"
+            />
+          );
+      },
         cell: ({ row }) => {
             const porcentaje = row.original.porcentaje_si
             return (
@@ -81,16 +92,15 @@ export const columns: ColumnDef<Grupo>[] = [
     {
         accessorKey: 'porcentaje_no',
         header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                % No
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
-        },
+          const isSorted = column.getIsSorted();
+          return (
+            <SortingButton
+              isSorted={isSorted}
+              onClick={() => column.toggleSorting(isSorted === "asc")}
+              label="% No"
+            />
+          );
+      },
         cell: ({ row }) => {
             const porcentaje = row.original.porcentaje_no
             return (
@@ -103,16 +113,15 @@ export const columns: ColumnDef<Grupo>[] = [
     {
         accessorKey: 'porcentaje_abstencion',
         header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                % Abstención
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
-        },
+          const isSorted = column.getIsSorted();
+          return (
+            <SortingButton
+              isSorted={isSorted}
+              onClick={() => column.toggleSorting(isSorted === "asc")}
+              label="% Abstención"
+            />
+          );
+      },
         cell: ({ row }) => {
             const porcentaje = row.original.porcentaje_abstencion
             return (

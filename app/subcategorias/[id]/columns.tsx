@@ -1,8 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
+import { SortingButton } from "@/components/ui/sorting-button";
 
 export type Votacion = {
   votaciones: {
@@ -18,33 +17,26 @@ export type Votacion = {
 
 export const columns: ColumnDef<Votacion>[] = [
     {
-        accessorKey: "id_votacion",
-        header: "ID Votación",
-        cell: ({ row }) => (
-            <a href={`/votaciones/${row.original.votaciones.id_votacion}`} className="text-blue-500 underline">
-                {row.original.votaciones.id_votacion}
-            </a>
-        ),
-    },
-    {
-        accessorKey: "fecha",
+        accessorKey: "votaciones.sesiones.fecha",
         header: ({ column }) => {
+            const isSorted = column.getIsSorted();
             return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Fecha
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
+              <SortingButton
+                isSorted={isSorted}
+                onClick={() => column.toggleSorting(isSorted === "asc")}
+                label="Fecha"
+              />
+            );
         },
         cell: ({ row }) => <span>{new Date(row.original.votaciones.sesiones.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>,
+        sortingFn: (a, b) => new Date(a.original.votaciones.sesiones.fecha).getTime() - new Date(b.original.votaciones.sesiones.fecha).getTime(),
     },
     {
         accessorKey: "titulo",
         header: "Título",
-        cell: ({ row }) => <span>{row.original.votaciones.titulo}</span>,
+        cell: ({ row }) => <a href={`/votaciones/${row.original.votaciones.id_votacion}`} className="text-blue-500 underline">
+          {row.original.votaciones.titulo}
+          </a>,
     },
     {
         accessorKey: "texto_expediente",
