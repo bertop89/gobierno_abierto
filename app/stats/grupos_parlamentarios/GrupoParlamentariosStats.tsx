@@ -13,7 +13,7 @@ const GrupoParlamentariosStats = ({ grupos_stats, votos_cruzados }: { grupos_sta
             </div>
             <div className="mt-4">
                 <h3 className="text-xl font-semibold mb-2">Votos Cruzados</h3>
-                <div className="overflow-x-auto" style={{ height: '500px' }}>
+                <div style={{ height: '500px', width: '90%' }}>
                     <ResponsiveHeatMap
                         data={votos_cruzados}
                         axisTop={{ tickSize: 5, tickPadding: 5, tickRotation: -45, legend: 'Grupo Votante', legendPosition: 'middle', legendOffset: -50 }}

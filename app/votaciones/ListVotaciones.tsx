@@ -1,14 +1,14 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Link from "next/link";
+
 
 const ListVotaciones = ({ votaciones }: { votaciones: any }) => {
-    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 25;
-    const router = useRouter();
 
     const paginatedVotaciones = votaciones.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
 
     return (
         <div>
@@ -29,54 +29,56 @@ const ListVotaciones = ({ votaciones }: { votaciones: any }) => {
                                     </span>
                                 </>
                             )}
-                            <div className="flex flex-col md:flex-row border rounded-xl mb-4 shadow-md h-full cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700" onClick={() => router.push(`/votaciones/${votacion.id_votacion}`)}>
-                                <div className="flex flex-col gap-2 p-4 mb-4 w-full md:w-3/4">
-                                    <span className="text-xl font-semibold">{votacion.titulo}</span>
-                                    <p className="text-sm text-muted-foreground">
-                                        {votacion.texto_expediente.length > 350
-                                            ? `${votacion.texto_expediente.slice(0, 350)}...`
-                                            : votacion.texto_expediente}
-                                    </p>
+                            <Link href={`/votaciones/${votacion.id_votacion}`}>
+                                <div className="flex flex-col md:flex-row border rounded-xl mb-4 shadow-md h-full cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <div className="flex flex-col gap-2 p-4 mb-4 w-full md:w-3/4">
+                                        <span className="text-xl font-semibold">{votacion.titulo}</span>
+                                        <p className="text-sm text-muted-foreground">
+                                            {votacion.texto_expediente.length > 350
+                                                ? `${votacion.texto_expediente.slice(0, 350)}...`
+                                                : votacion.texto_expediente}
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-col text-sm border p-2 w-full md:w-1/4 bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+                                        <h3 className="font-semibold dark:text-white">Resultados de la votación</h3>
+                                        <div className="flex items-center justify-between gap-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className="h-3 w-3 rounded-full bg-green-500"></span>
+                                                <p>Sí: {votacion.a_favor}</p>
+                                            </div>
+                                            <p className="text-right text-muted-foreground">({Math.round((votacion.a_favor / votacion.presentes) * 100)}%)</p>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className="h-3 w-3 rounded-full bg-red-500"></span>
+                                                <p>No: {votacion.en_contra}</p>
+                                            </div>
+                                            <p className="text-right text-muted-foreground">({Math.round((votacion.en_contra / votacion.presentes) * 100)}%)</p>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className="h-3 w-3 rounded-full bg-gray-500"></span>
+                                                <p>Abstenciones: {votacion.abstenciones}</p>
+                                            </div>
+                                            <p className="text-right text-muted-foreground">({Math.round((votacion.abstenciones / votacion.presentes) * 100)}%)</p>
+                                        </div>
+                                        <div className="mt-2 h-4 w-full bg-gray-200 rounded-full overflow-hidden relative">
+                                            <div
+                                                className="absolute top-0 left-0 h-full bg-green-500"
+                                                style={{ width: `${(votacion.a_favor / votacion.presentes) * 100}%` }}
+                                            ></div>
+                                            <div
+                                                className="absolute top-0 left-0 h-full bg-red-500"
+                                                style={{ width: `${(votacion.en_contra / votacion.presentes) * 100}%`, left: `${(votacion.a_favor / votacion.presentes) * 100}%` }}
+                                            ></div>
+                                            <div
+                                                className="absolute top-0 left-0 h-full bg-gray-500"
+                                                style={{ width: `${(votacion.abstenciones / votacion.presentes) * 100}%`, left: `${((votacion.a_favor + votacion.en_contra) / votacion.presentes) * 100}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="flex flex-col text-sm border p-2 w-full md:w-1/4 bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                    <h3 className="font-semibold dark:text-white">Resultados de la votación</h3>
-                                    <div className="flex items-center justify-between gap-2">
-                                        <div className="flex items-center gap-2">
-                                            <span className="h-3 w-3 rounded-full bg-green-500"></span>
-                                            <p>Sí: {votacion.a_favor}</p>
-                                        </div>
-                                        <p className="text-right text-muted-foreground">({Math.round((votacion.a_favor / votacion.presentes) * 100)}%)</p>
-                                    </div>
-                                    <div className="flex items-center justify-between gap-2">
-                                        <div className="flex items-center gap-2">
-                                            <span className="h-3 w-3 rounded-full bg-red-500"></span>
-                                            <p>No: {votacion.en_contra}</p>
-                                        </div>
-                                        <p className="text-right text-muted-foreground">({Math.round((votacion.en_contra / votacion.presentes) * 100)}%)</p>
-                                    </div>
-                                    <div className="flex items-center justify-between gap-2">
-                                        <div className="flex items-center gap-2">
-                                            <span className="h-3 w-3 rounded-full bg-gray-500"></span>
-                                            <p>Abstenciones: {votacion.abstenciones}</p>
-                                        </div>
-                                        <p className="text-right text-muted-foreground">({Math.round((votacion.abstenciones / votacion.presentes) * 100)}%)</p>
-                                    </div>
-                                    <div className="mt-2 h-4 w-full bg-gray-200 rounded-full overflow-hidden relative">
-                                        <div
-                                            className="absolute top-0 left-0 h-full bg-green-500"
-                                            style={{ width: `${(votacion.a_favor / votacion.presentes) * 100}%` }}
-                                        ></div>
-                                        <div
-                                            className="absolute top-0 left-0 h-full bg-red-500"
-                                            style={{ width: `${(votacion.en_contra / votacion.presentes) * 100}%`, left: `${(votacion.a_favor / votacion.presentes) * 100}%` }}
-                                        ></div>
-                                        <div
-                                            className="absolute top-0 left-0 h-full bg-gray-500"
-                                            style={{ width: `${(votacion.abstenciones / votacion.presentes) * 100}%`, left: `${((votacion.a_favor + votacion.en_contra) / votacion.presentes) * 100}%` }}
-                                        ></div>
-                                    </div>
-                                </div>
-                            </div>
+                            </Link>
                         </div>
                     );
                 })}

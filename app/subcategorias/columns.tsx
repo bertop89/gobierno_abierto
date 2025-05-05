@@ -16,7 +16,7 @@ export type Subcategoria = {
 export const columns: ColumnDef<Subcategoria>[] = [
     {
       accessorKey: "nombre_categoria",
-      header: "Nombre Categoría",
+      header: "Categoría",
       cell: ({ row }) => 
         <a href={`/categorias/${row.original.categorias.id_categoria}`} className="text-blue-500 underline">
             {row.original.categorias.nombre_categoria}
@@ -24,7 +24,7 @@ export const columns: ColumnDef<Subcategoria>[] = [
     },
     {
         accessorKey: "nombre_subcategoria",
-        header: "Nombre Subcategoría",
+        header: "Subcategoría",
         cell: ({ row }) => 
           <a href={`/subcategorias/${row.original.id_subcategoria}`} className="text-blue-500 underline">
               {row.original.nombre_subcategoria}
