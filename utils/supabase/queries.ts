@@ -39,7 +39,8 @@ export const getVotacion = cache(async (supabase: SupabaseClient, id: string) =>
                 nombre,
                 grupos_parlamentarios(
                     id_grupo,
-                    nombre
+                    nombre,
+                    order
                 )
             )
         ),
@@ -203,7 +204,8 @@ export const getVotacionesSubcategoria = cache(async (supabase: SupabaseClient, 
                     votos(
                         diputados(
                             grupos_parlamentarios(
-                                nombre
+                                nombre,
+                                order
                             )
                         ),
                         voto
@@ -249,7 +251,8 @@ export const getVotacionesCategoria = cache(async (supabase: SupabaseClient, cat
                         votos(
                             diputados(
                                 grupos_parlamentarios(
-                                    nombre
+                                    nombre,
+                                    order
                                 )
                             ),
                             voto

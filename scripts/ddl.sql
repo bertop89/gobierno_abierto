@@ -35,7 +35,8 @@ CREATE TABLE votaciones (
 CREATE TABLE grupos_parlamentarios (
     id_grupo SERIAL PRIMARY KEY,
     nombre VARCHAR(50),
-    color VARCHAR(20)
+    color VARCHAR(20),
+    order INTEGER
 );
 
 -- Diputados

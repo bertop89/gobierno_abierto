@@ -13,8 +13,9 @@ const SubcategoriaDetail = ({ subcategoria }: { subcategoria: any }) => {
   const groupedData = subcategoria.votaciones_subcategorias.reduce((acc: any, votacion: any) => {
     votacion.votaciones.votos.forEach((voto: any) => {
       const grupo = voto.diputados.grupos_parlamentarios.nombre;
+      const order = voto.diputados.grupos_parlamentarios.order;
       if (!acc[grupo]) {
-        acc[grupo] = { si: 0, no: 0, abstenciones: 0 };
+        acc[grupo] = { si: 0, no: 0, abstenciones: 0, order };
       }
       if (voto.voto === 'Sí') acc[grupo].si++;
       if (voto.voto === 'No') acc[grupo].no++;
@@ -22,6 +23,14 @@ const SubcategoriaDetail = ({ subcategoria }: { subcategoria: any }) => {
     });
     return acc;
   }, {});
+
+  // Convert groupedData to an array, sort by order, and then convert back to an object
+  const sortedGroupedData = Object.entries(groupedData)
+    .sort(([, a]: any, [, b]: any) => a.order - b.order)
+    .reduce((acc: any, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
 
   return (
     <div className="p-4">
@@ -32,9 +41,9 @@ const SubcategoriaDetail = ({ subcategoria }: { subcategoria: any }) => {
           {subcategoria.categorias.nombre_categoria}
         </a>
       </p>
-      {Object.keys(groupedData).length > 0 && (
+      {Object.keys(sortedGroupedData).length > 0 && (
         <div className="mt-6">
-          <BarChart groupedData={groupedData} />
+          <BarChart groupedData={sortedGroupedData} />
         </div>
       )}
       <div className="overflow-x-auto mb-6">
