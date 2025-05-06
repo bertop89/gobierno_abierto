@@ -2,9 +2,11 @@
 
 import { ResponsiveHeatMapCanvas } from '@nivo/heatmap';
 import { getWeek } from '../../lib/utils';
+import { useTheme } from 'next-themes'
 
 const HeatMapVotaciones = ({ votaciones }: { votaciones: any[] }) => {
-
+    const { theme, setTheme } = useTheme()
+    
     const generateHeatmapData = () => {
         const days = ["L", "M", "X", "J", "V", "S", "D"];
         const groupedData: { [key: string]: { [key: string]: number } } = {};
@@ -23,8 +25,6 @@ const HeatMapVotaciones = ({ votaciones }: { votaciones: any[] }) => {
             const weekKey = `S${week}`;
             groupedData[day][weekKey] = (groupedData[day][weekKey] || 0) + 1;
         });
-
-        console.log(groupedData); // Debugging line
 
         const data = days.map((day) => ({
             id: day,
@@ -62,11 +62,16 @@ const HeatMapVotaciones = ({ votaciones }: { votaciones: any[] }) => {
                         const count = e.cell.data.y;
                         const date = e.cell.data.date; // Get the date from the cell data
                         return (
-                            <div style={{ padding: '5px', backgroundColor: 'white', borderRadius: '5px'  }}>
+                            <div style={{ padding: '5px', backgroundColor: 'white', borderRadius: '5px', color: 'black' }}>
                                 <strong>{date}</strong><br />
                                 {count} votaciones
                             </div>
                         );
+                    }}
+                    theme={{
+                        text: {
+                            fill: theme === 'dark' ? '#ffffff' : '#000000'
+                        }
                     }}
                 />
             </div>

@@ -3,8 +3,10 @@
 import { columns } from "./columns"
 import { DataTable } from "../../../components/data-table"
 import { ResponsiveHeatMap } from '@nivo/heatmap'
+import { useTheme } from 'next-themes'
 
 const GrupoParlamentariosStats = ({ grupos_stats, votos_cruzados }: { grupos_stats: any, votos_cruzados:any }) => {
+    const { theme, setTheme } = useTheme()
     return (
         <div className="p-4">
             <h2 className="text-2xl font-semibold mb-4 text-center md:text-left">Estadísticas de Grupos Parlamentarios</h2>
@@ -17,8 +19,8 @@ const GrupoParlamentariosStats = ({ grupos_stats, votos_cruzados }: { grupos_sta
                     <ResponsiveHeatMap
                         data={votos_cruzados}
                         axisTop={{ tickSize: 5, tickPadding: 5, tickRotation: -45, legend: 'Grupo Votante', legendPosition: 'middle', legendOffset: -50 }}
-                        axisLeft={{ tickSize: 5, tickPadding: 5, tickRotation: -45, legend: 'Grupo Proponente', legendPosition: 'middle', legendOffset: -60 }}
-                        margin={{ top: 100, right: 20, bottom: 60, left: 90 }}
+                        axisLeft={{ tickSize: 5, tickPadding: 5, tickRotation: -45, legend: 'Grupo Proponente', legendPosition: 'middle', legendOffset: -50 }}
+                        margin={{ top: 100, right: 20, bottom: 60, left: 60 }}
                         colors={{
                           type: 'sequential',
                           scheme: 'red_yellow_green',
@@ -28,6 +30,11 @@ const GrupoParlamentariosStats = ({ grupos_stats, votos_cruzados }: { grupos_sta
                         label={(d) => `${d.value}%`}
                         labelTextColor={{ from: 'color', modifiers: [['darker', 3.0]] }}
                         isInteractive={false}
+                        theme={{
+                            text: {
+                                fill: theme === 'dark' ? '#ffffff' : '#000000'
+                            }
+                        }}
                     />
                 </div>
             </div>
