@@ -305,6 +305,20 @@ export const getProponentesCategoria = cache(async (supabase: SupabaseClient, ca
   
     return data;
 });
+
+export const getProponentesCategorias = cache(async (supabase: SupabaseClient) => {
+    const { data, error } = await supabase
+      .from('vw_proposiciones_por_grupo_y_categoria')
+      .select('id_grupo, nombre, order, color, id_categoria, nombre_categoria, total_proposiciones')
+      .order('order', { ascending: true });
+  
+    if (error) {
+      console.error(error);
+      throw new Error('Error fetching group proposiciones');
+    }
+  
+    return data;
+});
   
 
 export const getSubcategorias = cache(async (supabase: SupabaseClient) => {
