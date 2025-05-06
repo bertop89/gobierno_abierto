@@ -125,7 +125,10 @@ export const getGrupoParlamentario = cache(async (supabase: SupabaseClient, id: 
                         color
                     )
                 )
-            )
+            ),
+            id_votacion,
+            titulo,
+            texto_expediente
         )
       )
     `)
@@ -272,6 +275,37 @@ export const getVotacionesCategoria = cache(async (supabase: SupabaseClient, cat
 
     return subcategoria;
 });
+
+export const getProponentesSubcategoria = cache(async (supabase: SupabaseClient, subcategoriaId: string) => {
+    const { data, error } = await supabase
+      .from('vw_proposiciones_por_grupo_y_subcategoria')
+      .select('id_grupo, nombre, order, color, total_proposiciones')
+      .eq('id_subcategoria', subcategoriaId)
+      .order('order', { ascending: true });
+  
+    if (error) {
+      console.error(error);
+      throw new Error('Error fetching group proposiciones');
+    }
+  
+    return data;
+});
+
+export const getProponentesCategoria = cache(async (supabase: SupabaseClient, categoriaId: string) => {
+    const { data, error } = await supabase
+      .from('vw_proposiciones_por_grupo_y_categoria')
+      .select('id_grupo, nombre, order, color, total_proposiciones')
+      .eq('id_categoria', categoriaId)
+      .order('order', { ascending: true });
+  
+    if (error) {
+      console.error(error);
+      throw new Error('Error fetching group proposiciones');
+    }
+  
+    return data;
+});
+  
 
 export const getSubcategorias = cache(async (supabase: SupabaseClient) => {
     const { data: subcategorias, error } = await supabase

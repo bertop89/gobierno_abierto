@@ -2,12 +2,13 @@
 
 
 import { DataTable } from "../../../components/data-table";
-import BarChart from "../../../components/BarChart";
+import VotosBarChart from "../../../components/VotosBarChart";
+import CategoryBarChart from "../../../components/CategoryBarChart";
 import { columns } from "./columns";
 import Link from 'next/link';
 
 // Add a condition to render the BarChart only if there is data in groupedData
-const CategoriaDetail = ({ categoria }: { categoria: any }) => {
+const CategoriaDetail = ({ categoria, proponentes }: { categoria: any, proponentes: any }) => {
   // Group votos by grupo_parlamentario
   const groupedData = categoria.subcategorias.reduce((acc: any, subcategoria: any) => {
     subcategoria.votaciones_subcategorias.forEach((votacion: any) => {
@@ -39,7 +40,8 @@ const CategoriaDetail = ({ categoria }: { categoria: any }) => {
       <h1 className="text-2xl font-semibold mb-4">Categoría: {categoria.nombre_categoria}</h1>
       {Object.keys(sortedGroupedData).length > 0 && (
         <div className="mt-6">
-          <BarChart groupedData={sortedGroupedData} />
+          <VotosBarChart groupedData={sortedGroupedData} />
+          <CategoryBarChart data={proponentes} />
         </div>
       )}
       <div className="overflow-x-auto mb-6">

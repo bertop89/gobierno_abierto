@@ -3,25 +3,15 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarChart = ({ groupedData }: { groupedData: any }) => {
+const CategoryBarChart = ({ data }: { data: any }) => {
   const chartData = {
-    labels: Object.keys(groupedData),
+    labels: Object.values(data).map((data: any) => data.nombre),
     datasets: [
       {
-        label: 'Sí',
-        data: Object.values(groupedData).map((data: any) => data.si),
-        backgroundColor: 'rgba(34, 197, 94, 1.0)',
-      },
-      {
-        label: 'No',
-        data: Object.values(groupedData).map((data: any) => data.no),
-        backgroundColor: 'rgba(239, 68, 68, 1.0)',
-      },
-      {
-        label: 'Abstenciones',
-        data: Object.values(groupedData).map((data: any) => data.abstenciones),
-        backgroundColor: 'rgba(201, 203, 207, 1.0)',
-      },
+        label: 'Proposiciones',
+        data: Object.values(data).map((data: any) => data.total_proposiciones),
+        backgroundColor: 'gray',
+      }
     ],
   };
 
@@ -33,7 +23,7 @@ const BarChart = ({ groupedData }: { groupedData: any }) => {
       },
       title: {
         display: true,
-        text: 'Resultados por Grupo Parlamentario',
+        text: 'Proposiciones por Grupo Parlamentario',
       },
     },
     scales: {
@@ -49,4 +39,4 @@ const BarChart = ({ groupedData }: { groupedData: any }) => {
   return <Bar data={chartData} options={chartOptions} style={{  maxHeight: '400px' }}  />;
 };
 
-export default BarChart;
+export default CategoryBarChart;

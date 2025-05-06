@@ -4,7 +4,7 @@
 
 import { DataTable } from "../../../components/data-table"
 import { columns } from "./columns"
-import BarChart from "../../../components/BarChart";
+import BarChart from "../../../components/VotosBarChart";
 
 const VotacionDetail = ({ votacion }: { votacion: any }) => {
   const groupedData = votacion.votos.reduce((acc: any, voto: any) => {
