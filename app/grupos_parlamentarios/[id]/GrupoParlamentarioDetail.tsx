@@ -3,6 +3,25 @@
 import Link from "next/link";
 import PieChart from '@/components/PieChart';
 import TimeSeriesBarChart from '@/components/TimeSeriesBarChart';
+import { DataTable } from "@/components/data-table";
+import { columns, Proposicion } from "./columns";
+
+export const buildProposiciones = (grupoParlamentario: any): Proposicion[] => {
+  return grupoParlamentario.proponentes.map((proponente: any) => {
+      const votacion = proponente.votaciones;
+      const categoria = votacion.votaciones_subcategorias.length > 0
+          ? votacion.votaciones_subcategorias[0].subcategorias.categorias.nombre_categoria
+          : "";
+
+      return {
+          id_votacion: votacion.id_votacion,
+          fecha: votacion.sesiones.fecha,
+          titulo: votacion.titulo,
+          texto_expediente: votacion.texto_expediente,
+          categoria: categoria,
+      };
+  });
+};
 
 const GrupoParlamentarioDetail = ({ grupo_parlamentario }: { grupo_parlamentario: any }) => {
   const categoriasData = grupo_parlamentario?.proponentes?.flatMap((proponente: any) =>
@@ -29,6 +48,8 @@ const GrupoParlamentarioDetail = ({ grupo_parlamentario }: { grupo_parlamentario
     return acc;
   }, {});
 
+  const proposiciones = buildProposiciones(grupo_parlamentario);
+
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4" style={{ color: grupo_parlamentario?.color }}>
@@ -41,6 +62,10 @@ const GrupoParlamentarioDetail = ({ grupo_parlamentario }: { grupo_parlamentario
       <div className="mt-6">
         <h3 className="font-semibold mb-2">Categorías Proposiciones</h3>
         <PieChart categoriasCount={categoriasCount} />
+      </div>
+      <div className="mt-6">
+        <h3 className="font-semibold mb-2">Proposiciones</h3>
+        <DataTable columns={columns} data={proposiciones} />
       </div>
       <div className="mt-6">
         <h3 className="font-semibold mb-2">Diputados</h3>
