@@ -172,7 +172,7 @@ export const getVotosCruzadosPorGrupo = cache(async (supabase: SupabaseClient) =
         console.error(error);
         throw new Error('Error fetching votos por proponente');
     }
-
+    
     const grupos = votos.reduce((acc: any, item: any) => {
         let grupo = acc.find((g: any) => g.id === item.grupo_proponente);
         if (!grupo) {
@@ -184,6 +184,20 @@ export const getVotosCruzadosPorGrupo = cache(async (supabase: SupabaseClient) =
         }
         return acc;
     }, []);
+
+    // fill any missing x in the data array with 0% votes 
+    grupos.forEach((grupo: any) => {
+        const xValues = grupo.data.map((d: any) => d.x);
+        const allXValues = grupos.reduce((acc: any, g: any) => {
+            if (!acc.includes(g.id)) acc.push(g.id);
+            return acc;
+        }, []);
+        allXValues.forEach((x: any) => {
+            if (!xValues.includes(x)) {
+                grupo.data.push({ x, y: 0 });
+            }
+        });
+    });
 
     return grupos;
 });
