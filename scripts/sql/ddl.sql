@@ -104,15 +104,6 @@ ON public.sesiones
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert sesiones"
-ON public.sesiones
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.sesiones
-FOR DELETE TO anon
-USING (true);
 
 -- Enable RLS and create public read policy for votaciones
 ALTER TABLE public.votaciones ENABLE ROW LEVEL SECURITY;
@@ -122,15 +113,6 @@ ON public.votaciones
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert votaciones"
-ON public.votaciones
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.votaciones
-FOR DELETE TO anon
-USING (true);
 
 -- Enable RLS and create public read policy for grupos_parlamentarios
 ALTER TABLE public.grupos_parlamentarios ENABLE ROW LEVEL SECURITY;
@@ -140,15 +122,6 @@ ON public.grupos_parlamentarios
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert grupos_parlamentarios"
-ON public.grupos_parlamentarios
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.grupos_parlamentarios
-FOR DELETE TO anon
-USING (true);
 
 
 -- Enable RLS and create public read policy for diputados
@@ -159,15 +132,7 @@ ON public.diputados
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert diputados"
-ON public.diputados
-FOR INSERT TO anon
-WITH CHECK (true);
 
-CREATE POLICY "allow deletes"
-ON public.diputados
-FOR DELETE TO anon
-USING (true);
 
 -- Enable RLS and create public read policy for votos
 ALTER TABLE public.votos ENABLE ROW LEVEL SECURITY;
@@ -177,15 +142,6 @@ ON public.votos
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert votos"
-ON public.votos
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.votos
-FOR DELETE TO anon
-USING (true);
 
 -- Enable RLS and create public read policy for proponentes
 ALTER TABLE public.proponentes ENABLE ROW LEVEL SECURITY;
@@ -195,15 +151,6 @@ ON public.proponentes
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert proponentes"
-ON public.proponentes
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.proponentes
-FOR DELETE TO anon
-USING (true);
 
 
 -- Enable RLS and create public read policy for categorias
@@ -214,15 +161,6 @@ ON public.categorias
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert categorias"
-ON public.categorias
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.categorias
-FOR DELETE TO anon
-USING (true);
 
 -- Enable RLS and create public read policy for subcategorias
 ALTER TABLE public.subcategorias ENABLE ROW LEVEL SECURITY;
@@ -232,15 +170,6 @@ ON public.subcategorias
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert subcategorias"
-ON public.subcategorias
-FOR INSERT TO anon
-WITH CHECK (true);
-
-CREATE POLICY "allow deletes"
-ON public.subcategorias
-FOR DELETE TO anon
-USING (true);
 
 -- Enable RLS and create public read policy for votaciones_subcategorias
 ALTER TABLE public.votaciones_subcategorias ENABLE ROW LEVEL SECURITY;
@@ -250,13 +179,5 @@ ON public.votaciones_subcategorias
 FOR SELECT TO anon
 USING (true);
 
-CREATE POLICY "anon can insert votaciones_subcategorias"
-ON public.votaciones_subcategorias
-FOR INSERT TO anon
-WITH CHECK (true);
 
-CREATE POLICY "allow deletes"
-ON public.votaciones_subcategorias
-FOR DELETE TO anon
-USING (true);
 
