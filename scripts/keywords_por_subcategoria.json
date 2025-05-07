@@ -1,0 +1,325 @@
+{
+  "Reforma constitucional": [
+    "constitución",
+    "reforma constitucional"
+  ],
+  "Organización del Estado y las administraciones públicas": [
+    "autonomías",
+    "ayuntamiento",
+    "administración pública",
+    "organización territorial"
+  ],
+  "Justicia y sistema judicial": [
+    "jueces",
+    "tribunal",
+    "justicia",
+    "fiscalía",
+    "jurisdicción"
+  ],
+  "Transparencia y lucha contra la corrupción": [
+    "corrupción",
+    "transparencia",
+    "soborno",
+    "ética pública"
+  ],
+  "Régimen electoral": [
+    "electoral",
+    "voto",
+    "elecciones",
+    "sistema electoral"
+  ],
+  "Presupuestos generales del Estado": [
+    "presupuestos",
+    "gastos públicos",
+    "ingresos del estado",
+    "ley de presupuestos"
+  ],
+  "Política fiscal y tributaria": [
+    "impuestos",
+    "IVA",
+    "IRPF",
+    "fiscalidad",
+    "tributación"
+  ],
+  "Deuda pública": [
+    "deuda pública",
+    "bonos del estado",
+    "déficit público"
+  ],
+  "Banca y sistema financiero": [
+    "banco",
+    "sistema financiero",
+    "mercado de valores",
+    "entidades financieras"
+  ],
+  "Ayudas y subvenciones": [
+    "subvención",
+    "ayuda estatal",
+    "bonificación",
+    "incentivos públicos"
+  ],
+  "Derechos civiles y políticos": [
+    "derechos humanos",
+    "libertades civiles",
+    "derechos fundamentales",
+    "participación política"
+  ],
+  "Igualdad de género": [
+    "igualdad de género",
+    "mujer",
+    "violencia de género",
+    "brecha salarial"
+  ],
+  "Derechos LGTBIQ+": [
+    "lgtbi",
+    "diversidad sexual",
+    "orientación sexual",
+    "identidad de género"
+  ],
+  "Libertad de expresión y medios de comunicación": [
+    "libertad de prensa",
+    "medios de comunicación",
+    "censura",
+    "expresión"
+  ],
+  "Protección de datos y privacidad": [
+    "privacidad",
+    "datos personales",
+    "protección de datos",
+    "rgpd"
+  ],
+  "Sistema sanitario público": [
+    "sanidad",
+    "salud pública",
+    "sistema sanitario",
+    "atención primaria"
+  ],
+  "Salud mental": [
+    "salud mental",
+    "psiquiatría",
+    "atención psicológica",
+    "trastornos mentales"
+  ],
+  "Política farmacéutica": [
+    "medicamentos",
+    "farmacia",
+    "fármacos",
+    "recetas"
+  ],
+  "Investigación médica": [
+    "investigación médica",
+    "ensayos clínicos",
+    "biomedicina"
+  ],
+  "Pandemias y emergencias sanitarias": [
+    "pandemia",
+    "emergencia sanitaria",
+    "covid",
+    "alerta sanitaria"
+  ],
+  "Sistema educativo": [
+    "educación",
+    "centros escolares",
+    "currículo",
+    "alumnado",
+    "enseñanza obligatoria"
+  ],
+  "Universidades": [
+    "universidad",
+    "enseñanza superior",
+    "campus",
+    "titulaciones universitarias"
+  ],
+  "Investigación y desarrollo (I+D)": [
+    "i+d",
+    "innovación",
+    "desarrollo científico"
+  ],
+  "Cultura y patrimonio": [
+    "cultura",
+    "patrimonio",
+    "museos",
+    "arte",
+    "festivales"
+  ],
+  "Medios de comunicación y RTVE": [
+    "rtve",
+    "radiotelevisión",
+    "servicio público de comunicación",
+    "informativos"
+  ],
+  "Reforma laboral": [
+    "reforma laboral",
+    "legislación laboral",
+    "contratación",
+    "reforma del empleo"
+  ],
+  "Pensiones": [
+    "pensiones",
+    "jubilación",
+    "seguridad social",
+    "cotización"
+  ],
+  "Condiciones laborales": [
+    "condiciones laborales",
+    "horario",
+    "sueldo",
+    "derechos laborales",
+    "despido"
+  ],
+  "Empleo juvenil": [
+    "empleo juvenil",
+    "paro juvenil",
+    "primer empleo"
+  ],
+  "Seguridad social": [
+    "seguridad social",
+    "cotización",
+    "protección social"
+  ],
+  "Servicios sociales": [
+    "servicios sociales",
+    "asistencia social",
+    "intervención social"
+  ],
+  "Vivienda y alquiler": [
+    "vivienda",
+    "alquiler",
+    "hipoteca",
+    "derecho a la vivienda"
+  ],
+  "Apoyo a familias y dependencia": [
+    "familias",
+    "dependencia",
+    "cuidado",
+    "ley de dependencia"
+  ],
+  "Pobreza y exclusión social": [
+    "pobreza",
+    "exclusión social",
+    "riesgo social",
+    "desigualdad"
+  ],
+  "Cambio climático": [
+    "cambio climático",
+    "calentamiento global",
+    "reducción de emisiones"
+  ],
+  "Energías renovables": [
+    "energías renovables",
+    "solar",
+    "eólica",
+    "autoconsumo"
+  ],
+  "Política energética": [
+    "energía",
+    "mix energético",
+    "combustibles fósiles",
+    "nuclear"
+  ],
+  "Protección de la biodiversidad": [
+    "biodiversidad",
+    "especies protegidas",
+    "conservación"
+  ],
+  "Gestión del agua y residuos": [
+    "agua",
+    "residuos",
+    "reciclaje",
+    "saneamiento"
+  ],
+  "Política agraria común (PAC)": [
+    "política agraria",
+    "subvenciones agrícolas"
+  ],
+  "Pesca": [
+    "pesca",
+    "pesquero",
+    "flota pesquera",
+    "caladeros"
+  ],
+  "Industria alimentaria": [
+    "alimentación",
+    "industria alimentaria",
+    "etiquetado",
+    "seguridad alimentaria"
+  ],
+  "Desarrollo rural": [
+    "mundo rural",
+    "desarrollo rural",
+    "zonas despobladas",
+    "repoblación"
+  ],
+  "Ferrocarriles, carreteras y aeropuertos": [
+    "infraestructuras",
+    "carreteras",
+    "ferrocarril",
+    "aeropuerto"
+  ],
+  "Transporte público": [
+    "transporte público",
+    "metro",
+    "autobuses",
+    "cercanías"
+  ],
+  "Movilidad sostenible": [
+    "movilidad sostenible",
+    "bicicleta",
+    "vehículo eléctrico",
+    "zonas de bajas emisiones"
+  ],
+  "Telecomunicaciones": [
+    "telecomunicaciones",
+    "5g",
+    "fibra óptica",
+    "cobertura"
+  ],
+  "Política internacional": [
+    "política exterior",
+    "relaciones internacionales",
+    "geopolítica"
+  ],
+  "Cooperación al desarrollo": [
+    "cooperación internacional",
+    "ayuda al desarrollo",
+    "solidaridad"
+  ],
+  "Unión Europea": [
+    "unión europea",
+    "parlamento europeo",
+    "instituciones europeas"
+  ],
+  "Defensa nacional y Fuerzas Armadas": [
+    "ejército",
+    "defensa nacional",
+    "fuerzas armadas",
+    "militares"
+  ],
+  "Migración y asilo": [
+    "inmigración",
+    "asilo",
+    "refugiados",
+    "migrantes"
+  ],
+  "Policía y Guardia Civil": [
+    "policía",
+    "guardia civil",
+    "fuerzas de seguridad"
+  ],
+  "Política penitenciaria": [
+    "prisiones",
+    "penitenciario",
+    "reclusos",
+    "centros penitenciarios"
+  ],
+  "Lucha contra el terrorismo": [
+    "terrorismo",
+    "radicalización",
+    "seguridad nacional"
+  ],
+  "Delincuencia y seguridad ciudadana": [
+    "delincuencia",
+    "seguridad ciudadana",
+    "criminalidad"
+  ]
+}
